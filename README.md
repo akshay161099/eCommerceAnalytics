@@ -49,3 +49,18 @@ graph TD
 3. Run the following command:
    ```bash
    docker-compose up --build
+4. Access the Dashboard at http://localhost:5173
+
+APIs - 
+
+POST  - /api/events: Ingests a new user event.
+        request body - 
+        {
+            "timestamp": "2024-03-15T14:30:00Z",
+            "user_id": "usr_0112",
+            "event_type": "page_view",
+            "page_url": "/products/electronics",
+            "session_id": "sess_456"
+        }
+GET - api/dashboard: Returns aggregated stats (Active users, Top pages).
+
