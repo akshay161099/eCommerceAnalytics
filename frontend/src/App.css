@@ -1,0 +1,89 @@
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: black; 
+  color: white; 
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+}
+
+
+.dashboard {
+  width: 100%; 
+  max-width: none; 
+  margin: 0;
+  padding: 20px; 
+  box-sizing: border-box; 
+}
+
+header {
+  margin-bottom: 30px;
+}
+
+.grid {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 40px;
+}
+
+.card {
+  background: #1a1a1a; 
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); 
+  border: 1px solid #333;
+  flex:1;
+  min-width: 0;
+  width: 300px;
+}
+
+.big-number {
+  font-size: 4rem;
+  font-weight: bold;
+  color: #3b82f6;
+}
+
+table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+  margin-top: 10px;
+  color: gray;
+}
+
+td,
+th {
+  padding: 12px 0;
+  border-bottom: 1px solid #333; 
+  
+}
+
+.session-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #333;
+  color: gray;
+}
+
+.badge {
+  background: #333; 
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-weight: bold;
+  color: gray;
+}
+
+.loading {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 1.5rem;
+  color: #888;
+}
+.refresh-note {
+  color: orange;
+}
