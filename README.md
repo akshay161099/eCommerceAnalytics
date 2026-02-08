@@ -3,6 +3,7 @@
 ## Overview
 A lightweight analytics service built with Spring Boot, Redis, and React. It ingests high-frequency user events, calculates rolling metrics in real-time, and displays them on a dashboard.
 
+```mermaid
 graph TD
     %% Actors
     User([User / Browser])
@@ -48,6 +49,7 @@ graph TD
     style Redis fill:#ff7b7b,stroke:#333,stroke-width:2px
     style React fill:#61dafb,stroke:#333,stroke-width:2px,color:black
     style Backend_Container fill:#e8f5e9,stroke:#333
+```
    
 
 ## Tech Stack
