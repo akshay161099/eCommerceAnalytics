@@ -5,42 +5,50 @@ A lightweight analytics service built with Spring Boot, Redis, and React. It ing
 
 graph TD
     %% Actors
-    Client[User Browser]
-    Generator[Mock Data Generator]
+    User([User / Browser])
+    Gen([Mock Data Generator])
 
-    %% Components
-    subgraph Docker_Compose [Docker Compose Environment]
+    %% Docker Container Context
+    subgraph Docker_Environment [Docker Compose Environment]
         
-        subgraph Frontend_Container [Frontend (React + Vite)]
-            Dashboard[Dashboard UI]
+        %% Frontend Service
+        subgraph Frontend_Container [Frontend Service]
+            React[React App]
         end
 
-        subgraph Backend_Container [Backend (Spring Boot)]
-            API[API Controller]
-            Limiter[Rate Limiter (Token Bucket)]
+        %% Backend Service
+        subgraph Backend_Container [Backend Service]
+            Controller[API Controller]
+            Limiter{Rate Limiter}
             Service[Analytics Service]
         end
 
-        subgraph Data_Store [Data Layer]
-            Redis[(Redis)]
+        %% Database Service
+        subgraph Data_Store [Redis Service]
+            Redis[(Redis Cache)]
         end
     end
 
-    %% Flows
-    Generator -- "1. POST /events (JSON)" --> API
-    Client -- "View Dashboard" --> Dashboard
-    
-    %% Backend Logic
-    API -- "2. Check Limit" --> Limiter
+    %% Data Flow - Ingestion
+    Gen -- "1. POST /api/events (JSON)" --> Controller
+    Controller -- "2. Check Limit (AtomicInt)" --> Limiter
     Limiter -- "Allowed" --> Service
-    Limiter -- "Blocked" --> API
+    Limiter -. "Blocked" .-x Controller
     
-    %% Redis Interactions
-    Service -- "3. Write (ZADD)" --> Redis
-    Service -- "4. Read Aggregations (ZCOUNT/ZRANGE)" --> Redis
+    Service -- "3. Write: ZADD (Timestamp Score)" --> Redis
     
-    %% Frontend Polling
-    Dashboard -- "5. GET /dashboard (Poll 30s)" --> API
+    %% Data Flow - Dashboard
+    User -- "4. View Dashboard" --> React
+    React -- "5. Poll: GET /api/dashboard (30s)" --> Controller
+    Controller -- "6. Read: ZCOUNT / ZRANGE" --> Redis
+    Redis -- "7. Return Aggregated Stats" --> Controller
+    Controller -- "8. Return JSON" --> React
+
+    %% Styling
+    style Redis fill:#ff7b7b,stroke:#333,stroke-width:2px
+    style React fill:#61dafb,stroke:#333,stroke-width:2px,color:black
+    style Backend_Container fill:#e8f5e9,stroke:#333
+   
 
 ## Tech Stack
 - **Backend**: Java 17, Spring Boot 3
