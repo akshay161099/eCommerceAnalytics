@@ -3,7 +3,44 @@
 ## Overview
 A lightweight analytics service built with Spring Boot, Redis, and React. It ingests high-frequency user events, calculates rolling metrics in real-time, and displays them on a dashboard.
 
-[Architecture Diagram Placeholder]
+graph TD
+    %% Actors
+    Client[User Browser]
+    Generator[Mock Data Generator]
+
+    %% Components
+    subgraph Docker_Compose [Docker Compose Environment]
+        
+        subgraph Frontend_Container [Frontend (React + Vite)]
+            Dashboard[Dashboard UI]
+        end
+
+        subgraph Backend_Container [Backend (Spring Boot)]
+            API[API Controller]
+            Limiter[Rate Limiter (Token Bucket)]
+            Service[Analytics Service]
+        end
+
+        subgraph Data_Store [Data Layer]
+            Redis[(Redis)]
+        end
+    end
+
+    %% Flows
+    Generator -- "1. POST /events (JSON)" --> API
+    Client -- "View Dashboard" --> Dashboard
+    
+    %% Backend Logic
+    API -- "2. Check Limit" --> Limiter
+    Limiter -- "Allowed" --> Service
+    Limiter -- "Blocked" --> API
+    
+    %% Redis Interactions
+    Service -- "3. Write (ZADD)" --> Redis
+    Service -- "4. Read Aggregations (ZCOUNT/ZRANGE)" --> Redis
+    
+    %% Frontend Polling
+    Dashboard -- "5. GET /dashboard (Poll 30s)" --> API
 
 ## Tech Stack
 - **Backend**: Java 17, Spring Boot 3
