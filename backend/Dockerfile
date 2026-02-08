@@ -7,5 +7,5 @@ RUN mvn clean package -DskipTests
 
 FROM amazoncorretto:21
 WORKDIR /app
-COPY --from=build /app/target/analytics-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/demo-0.0.1-SNAPSHOT.jar.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
