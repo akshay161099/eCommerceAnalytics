@@ -1,4 +1,4 @@
-# Real-Time Analytics Platform
+# E-Commerce Analytics Platform
 
 ## Overview
 A lightweight analytics service built with Spring Boot, Redis, and React. It ingests high-frequency user events, calculates rolling metrics in real-time, and displays them on a dashboard.
