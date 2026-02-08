@@ -25,9 +25,9 @@ graph TD
    
 
 ## Tech Stack
-- **Backend**: Java 17, Spring Boot 3
+- **Backend**: Java 21, Spring Boot 3
 - **Database**: Redis (Sorted Sets for time-series windows)
-- **Frontend**: React (Vite)
+- **Frontend**: React (Vite)+ Node 22
 - **Infrastructure**: Docker Compose
 
 ## Core Features
@@ -42,6 +42,7 @@ graph TD
 
 ### Prerequisites
 - Docker & Docker Compose installed.
+- Docker Desktop installed and running.
 
 ### Running the App
 1. Clone the repository.
